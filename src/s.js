@@ -1,4 +1,56 @@
-// TASK 1 - COUNTRY SEARCH
+// TASK 1 Task 1
+function delayedPromise(value, delayMs) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(value), delayMs);
+  });
+}
+
+const promises = [
+  delayedPromise("Value 1", 1500),
+  delayedPromise("Value 2", 3000),
+  delayedPromise("Value 3", 1000),
+  delayedPromise("Value 4", 2500),
+  delayedPromise("Value 5", 2000),
+];
+
+Promise.all(promises)
+  .then((results) => {
+    console.log("Результати виконання всіх промісів:");
+    results.forEach((result, index) => {
+      console.log(`[${index + 1}] ${result}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Помилка при виконанні Promise.all:", error);
+  });
+
+// TASK 1 Task 2
+function randomDelay(value) {
+  const delay = Math.floor(Math.random() * 4000) + 1000; //
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({ value, delay }), delay);
+  });
+}
+
+const racePromises = [
+  randomDelay("Результат 1"),
+  randomDelay("Результат 2"),
+  randomDelay("Результат 3"),
+  randomDelay("Результат 4"),
+  randomDelay("Результат 5"),
+];
+
+Promise.race(racePromises)
+  .then(({ value, delay }) => {
+    console.log("Найшвидший проміс:");
+    console.log(`Значення: ${value}`);
+    console.log(`Час виконання: ${delay} мс`);
+  })
+  .catch((error) => {
+    console.error("Помилка при виконанні Promise.race:", error);
+  });
+
+// TASK 1 COUNTRY SEARCH
 
 const countryInput = document.getElementById("countryInput");
 const results = document.getElementById("results");
@@ -79,7 +131,10 @@ async function loadCats() {
       return;
     }
     const markup = data
-      .map((cat) => `<img src="${cat.url}" alt="Cat" loading="lazy" />`)
+      .map(
+        (cat) =>
+          `<img src="${cat.url}" alt="Cat" loading="lazy" style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />`
+      )
       .join("");
     catResults.insertAdjacentHTML("beforeend", markup);
     catPage++;
@@ -89,7 +144,7 @@ async function loadCats() {
 }
 
 catLoadMore.addEventListener("click", loadCats);
-loadCats(); // initial load
+loadCats();
 
 // TASK 3 - POSTS
 
