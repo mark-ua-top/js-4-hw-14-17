@@ -160,7 +160,7 @@
       });
     }
   }
-})({"kQUdg":[function(require,module,exports,__globalThis) {
+})({"9s8cG":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -667,7 +667,52 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"2VCRL":[function(require,module,exports,__globalThis) {
-// TASK 1 - COUNTRY SEARCH
+// TASK 1 Task 1
+function delayedPromise(value, delayMs) {
+    return new Promise((resolve)=>{
+        setTimeout(()=>resolve(value), delayMs);
+    });
+}
+const promises = [
+    delayedPromise("Value 1", 1500),
+    delayedPromise("Value 2", 3000),
+    delayedPromise("Value 3", 1000),
+    delayedPromise("Value 4", 2500),
+    delayedPromise("Value 5", 2000)
+];
+Promise.all(promises).then((results)=>{
+    console.log("\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0438 \u0432\u0438\u043A\u043E\u043D\u0430\u043D\u043D\u044F \u0432\u0441\u0456\u0445 \u043F\u0440\u043E\u043C\u0456\u0441\u0456\u0432:");
+    results.forEach((result, index)=>{
+        console.log(`[${index + 1}] ${result}`);
+    });
+}).catch((error)=>{
+    console.error("\u041F\u043E\u043C\u0438\u043B\u043A\u0430 \u043F\u0440\u0438 \u0432\u0438\u043A\u043E\u043D\u0430\u043D\u043D\u0456 Promise.all:", error);
+});
+// TASK 1 Task 2
+function randomDelay(value) {
+    const delay = Math.floor(Math.random() * 4000) + 1000; //
+    return new Promise((resolve)=>{
+        setTimeout(()=>resolve({
+                value,
+                delay
+            }), delay);
+    });
+}
+const racePromises = [
+    randomDelay("\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 1"),
+    randomDelay("\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 2"),
+    randomDelay("\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 3"),
+    randomDelay("\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 4"),
+    randomDelay("\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 5")
+];
+Promise.race(racePromises).then(({ value, delay })=>{
+    console.log("\u041D\u0430\u0439\u0448\u0432\u0438\u0434\u0448\u0438\u0439 \u043F\u0440\u043E\u043C\u0456\u0441:");
+    console.log(`\u{417}\u{43D}\u{430}\u{447}\u{435}\u{43D}\u{43D}\u{44F}: ${value}`);
+    console.log(`\u{427}\u{430}\u{441} \u{432}\u{438}\u{43A}\u{43E}\u{43D}\u{430}\u{43D}\u{43D}\u{44F}: ${delay} \u{43C}\u{441}`);
+}).catch((error)=>{
+    console.error("\u041F\u043E\u043C\u0438\u043B\u043A\u0430 \u043F\u0440\u0438 \u0432\u0438\u043A\u043E\u043D\u0430\u043D\u043D\u0456 Promise.race:", error);
+});
+// TASK 1 COUNTRY SEARCH
 const countryInput = document.getElementById("countryInput");
 const results = document.getElementById("results");
 const searchBtn = document.getElementById("searchBtn");
@@ -727,7 +772,7 @@ async function loadCats() {
             catLoadMore.disabled = true;
             return;
         }
-        const markup = data.map((cat)=>`<img src="${cat.url}" alt="Cat" loading="lazy" />`).join("");
+        const markup = data.map((cat)=>`<img src="${cat.url}" alt="Cat" loading="lazy" style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />`).join("");
         catResults.insertAdjacentHTML("beforeend", markup);
         catPage++;
     } catch  {
@@ -735,7 +780,7 @@ async function loadCats() {
     }
 }
 catLoadMore.addEventListener("click", loadCats);
-loadCats(); // initial load
+loadCats();
 // TASK 3 - POSTS
 const ghUsers = document.querySelector(".githubUsers");
 const seePostBtn = document.querySelector(".seePost");
@@ -759,6 +804,6 @@ seePostBtn.addEventListener("click", async ()=>{
     ghUsers.innerHTML = makePostsMarkup(data);
 })();
 
-},{}]},["kQUdg","2VCRL"], "2VCRL", "parcelRequire6e60", {})
+},{}]},["9s8cG","2VCRL"], "2VCRL", "parcelRequire6e60", {})
 
 //# sourceMappingURL=js-4-hw-14-17.3ae23d5d.js.map
